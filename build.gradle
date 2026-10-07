@@ -262,8 +262,10 @@ tasks.withType(Checkstyle).configureEach {
 // ─────────────────────────────────────────────────────────────────────────────
 spotbugs {
     toolVersion = '4.8.6'
-    effort = 'max'
-    reportLevel = 'low'
+    // Se usan los enums del plugin vía valueOf (no String ni acceso directo al
+    // constante): el DSL de Gradle 8.x (imagen Docker) no coerciona String -> enum.
+    effort = com.github.spotbugs.snom.Effort.valueOf('MAX')
+    reportLevel = com.github.spotbugs.snom.Confidence.valueOf('LOW')
     excludeFilter = file('config/spotbugs/exclude.xml')
     ignoreFailures = false
     showStackTraces = true
