@@ -8,6 +8,8 @@ WORKDIR /app
 # Copiamos primero solo los archivos de dependencias para aprovechar el cache de capas
 COPY build.gradle settings.gradle gradle.properties ./
 COPY gradle ./gradle
+# Configuración de análisis estático (Checkstyle, PMD, SpotBugs)
+COPY config ./config
 
 # Descargamos dependencias (cacheadas si build.gradle no cambia)
 RUN gradle dependencies --no-daemon || true

@@ -3,6 +3,7 @@ package cl.duocuc.ep02.cucumber;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -55,7 +56,7 @@ public class AlumnoSteps extends CucumberSpringConfiguration {
                 restTemplate.postForEntity(baseUrl(), request, Alumno.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        lastCreatedId = response.getBody().getId();
+        lastCreatedId = Objects.requireNonNull(response.getBody()).getId();
     }
 
     // ─── WHEN ────────────────────────────────────────────────────────────────
