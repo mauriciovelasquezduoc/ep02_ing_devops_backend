@@ -25,6 +25,12 @@ FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
+# Aplicar parches de seguridad del sistema operativo (Trivy falla si la base
+# trae CVEs HIGH/CRITICAL con fix disponible; apt-get upgrade los corrige).
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
+ && rm -rf /var/lib/apt/lists/*
+
 # Usuario no-root por seguridad
 RUN groupadd --system appgroup && useradd --system --gid appgroup appuser
 
